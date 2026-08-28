@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add global box-sizing rule here instead */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #F4F9FC;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, #6B7280 1px, transparent 1px),
+                    linear-gradient(to bottom, #6B7280 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@keyframes doorOpen {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes doorClose {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}/* Build Mon, Sep 22, 2025  8:58:48 AM */

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Título -->
+    <title>Oswal Jaimes | Diseño UX, Desarrollo Web Bogotá, Colombia | Experiencias Web Distintas</title>
+
+    <!-- SEO básico -->
+    <meta name="description" content="Oswal Jaimes, diseñador UX y desarrollador frontend en Bogotá, Colombia. Creo interfaces y experiencias web distintas para marcas distintas. Diseño web, productos digitales y landings que comunican, conectan y convierten." />
+    <meta name="keywords" content="Oswal Jaimes, diseño UX Bogotá, diseño web Colombia, frontend Bogotá, desarrollo web Bogotá, diseñador UX Colombia, interfaces interactivas, animaciones web GSAP, UX Designer Bogotá, landing pages Colombia, estrategia digital Bogotá" />
+    <meta name="author" content="Oswal Jaimes" />
+    <meta name="google-site-verification" content="m6ZQzfN2Pp_JTJhvLkd-6LIBrOWPzoNn9WIFuvxxFhY" />
+    <link rel="canonical" href="https://oswal.com.co/" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <!-- Geographic SEO -->
+    <meta name="geo.region" content="CO-DC" />
+    <meta name="geo.placename" content="Bogotá, Colombia" />
+    <meta name="ICBM" content="4.7110,-74.0721" />
+
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="es" href="https://oswal.com.co/" />
+    <link rel="alternate" hreflang="es-CO" href="https://oswal.com.co/" />
+    <link rel="alternate" hreflang="x-default" href="https://oswal.com.co/" />
+
+    <!-- Performance Optimization -->
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/assets/fonts/primary-font.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.clarity.ms">
+    
+    <!-- Critical CSS inlined -->
+    <style>
+      /* Critical CSS for Hero Section - Above the fold */
+      html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+      #root { min-height: 100vh; }
+      .hero-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+      .hero-content { text-align: center; color: white; max-width: 800px; padding: 2rem; }
+      .hero-title { font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 1rem; font-weight: 700; line-height: 1.2; }
+      .hero-subtitle { font-size: clamp(1rem, 2.5vw, 1.5rem); margin-bottom: 2rem; opacity: 0.9; }
+      .cta-button { display: inline-block; padding: 1rem 2rem; background: #CCF381; color: #1a1a2e; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.3s ease; }
+      .cta-button:hover { transform: translateY(-2px); }
+      /* Loading spinner for initial load */
+      .loading { display: flex; justify-content: center; align-items: center; height: 100vh; }
+      .spinner { width: 50px; height: 50px; border: 3px solid #f3f3f3; border-top: 3px solid #CCF381; border-radius: 50%; animation: spin 1s linear infinite; }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      
+      /* Image optimization styles */
+      .profile-image { width: 400px; height: 400px; border-radius: 50%; object-fit: cover; border: 4px solid #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+      .project-image { transition: transform 0.3s ease; border-radius: 0.5rem; }
+      .project-image:hover { transform: scale(1.02); }
+      
+      /* Loading placeholder for lazy images */
+      img[loading="lazy"]:not([src*="data:"]) { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+      @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    </style>
+
+    <!-- Open Graph -->
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Oswal Jaimes | Diseño UX y Desarrollo Web en Bogotá" />
+    <meta property="og:description" content="Diseñador UX y Frontend Developer en Bogotá, Colombia. Creo experiencias web distintas que conectan, comunican y convierten." />
+    <meta property="og:url" content="https://oswal.com.co/" />
+    <meta property="og:site_name" content="Oswal Jaimes" />
+    <meta property="og:image" content="https://res.cloudinary.com/ddqbnr9vo/image/upload/v1759878558/Oswal_Jaimes_Web_Design_qcogxz.jpg" />
+    <meta property="og:image:alt" content="Portafolio de Oswal Jaimes, diseñador UX y frontend" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@oswaljaimes" />
+    <meta name="twitter:creator" content="@oswaljaimes" />
+    <meta name="twitter:title" content="Oswal Jaimes | Diseño UX y Desarrollo Web" />
+    <meta name="twitter:description" content="Experiencias web distintas para marcas distintas. Diseño UX, desarrollo frontend y marketing digital con propósito." />
+    <meta name="twitter:image" content="https://res.cloudinary.com/ddqbnr9vo/image/upload/v1759878558/Oswal_Jaimes_Web_Design_qcogxz.jpg" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCNHFYS3S9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QCNHFYS3S9');
+    </script>
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "tmrp0jwhwz");
+    </script>
+
+    <!-- Async CSS Loading -->
+    <script>
+      // Load non-critical CSS asynchronously
+      function loadCSS(href) {
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'style';
+        link.href = href;
+        link.onload = function() { this.rel = 'stylesheet'; };
+        document.head.appendChild(link);
+      }
+      
+      // Load FontAwesome after critical content
+      window.addEventListener('load', function() {
+        loadCSS('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+      });
+    </script>
+
+    <!-- Schema Person with Enhanced Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://oswal.com.co/#person",
+      "name": "Oswal Jaimes",
+      "url": "https://oswal.com.co",
+      "image": "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1759878558/Oswal_Jaimes_Web_Design_qcogxz.jpg",
+      "sameAs": [
+        "https://www.linkedin.com/in/oswaldo-jaimes/",
+        "https://www.instagram.com/oswaljaimes",
+        "https://www.tiktok.com/@oswal_jaimess"
+      ],
+      "jobTitle": "UX Designer & Frontend Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Freelance"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CO",
+        "addressRegion": "Bogotá"
+      },
+      "description": "Diseñador UX y desarrollador frontend especializado en crear experiencias web distintas para marcas distintas. Experto en diseño de interfaces, desarrollo web, y estrategia digital.",
+      "knowsAbout": ["UX Design", "Frontend Development", "Web Design", "UI Design", "JavaScript", "Vue.js", "GSAP", "SEO", "Digital Marketing"],
+      "email": "mailto:contact@oswal.com.co"
+    }
+    </script>
+
+    <!-- Schema Professional Service -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "@id": "https://oswal.com.co/#business",
+      "name": "Oswal Jaimes - Diseño UX & Desarrollo Web",
+      "url": "https://oswal.com.co",
+      "logo": "https://oswal.com.co/logo.png",
+      "image": "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1759878558/Oswal_Jaimes_Web_Design_qcogxz.jpg",
+      "description": "Servicios profesionales de diseño UX, desarrollo web frontend, y creación de experiencias digitales para marcas.",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CO",
+        "addressRegion": "Bogotá"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Colombia"
+      },
+      "serviceType": ["Diseño UX", "Desarrollo Web", "Frontend Development", "Diseño de Interfaces", "Marketing Digital", "SEO"]
+    }
+    </script>
+
+    <!-- Schema WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://oswal.com.co",
+      "name": "Oswal Jaimes | UX Designer & Frontend",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://oswal.com.co/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://oswal.com.co/" }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
