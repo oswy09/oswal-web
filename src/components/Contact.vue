@@ -117,11 +117,11 @@
                   </div>
                   
                   <div class="contact-methods">
-                    <a href="mailto:web@oswal.com.co" class="contact-method email">
+                    <a href="mailto:web@oswalstudio.com" class="contact-method email">
                       <div class="method-icon">📧</div>
                       <div class="method-info">
                         <span class="method-label">Email</span>
-                        <span class="method-value">web@oswal.com.co</span>
+                        <span class="method-value">web@oswalstudio.com</span>
                       </div>
                     </a>
 

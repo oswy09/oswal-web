@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://oswal.com.co/sitemap.xml
+Sitemap: https://oswalstudio.com/sitemap.xml
