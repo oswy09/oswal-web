@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Hero from './components/Hero.vue'
-import Elevator from './components/Elevator.vue'
 import { elevatorSounds } from './services/elevatorSounds'
+
+const LazyElevator = () => import('./components/Elevator.vue')
 
 const routes = [
   {
@@ -12,25 +13,25 @@ const routes = [
   {
     path: '/services',
     name: 'services',
-    component: Elevator,
+    component: LazyElevator,
     props: { targetFloor: 1 }
   },
   {
     path: '/projects',
     name: 'projects',
-    component: Elevator,
+    component: LazyElevator,
     props: { targetFloor: 2 }
   },
   {
     path: '/contact',
     name: 'contact',
-    component: Elevator,
+    component: LazyElevator,
     props: { targetFloor: 3 }
   },
   {
     path: '/about',
     name: 'about',
-    component: Elevator,
+    component: LazyElevator,
     props: { targetFloor: 4 }
   },
 

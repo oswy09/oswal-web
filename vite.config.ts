@@ -13,5 +13,16 @@ export default defineConfig({
   build: {
     outDir: 'public_html',
     emptyOutDir: true,
+    cssCodeSplit: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor':  ['vue', 'vue-router'],
+          'gsap':    ['gsap'],
+          'lottie':  ['@lottiefiles/dotlottie-vue', 'lottie-web'],
+          'icons':   ['lucide-vue-next'],
+        },
+      },
+    },
   },
 })
