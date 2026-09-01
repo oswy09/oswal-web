@@ -231,6 +231,7 @@ const route = useRoute()
 
 interface Project {
   id: number
+  slug: string
   title: string
   image: string
   category?: string
@@ -270,7 +271,7 @@ const currentProject = ref<Project | null>(null)
 const results = [
 
 {
-    id: 1,
+    id: 1, slug: 'hotel-amazon',
     title: 'Hotel Amazon B&B - Un Refugio en el Corazón del Amazonas',
     image: 'http://www.amazonbb.com/wp-content/uploads/2023/05/boat-forest-river-blue-sky-reflection.jpg',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -356,7 +357,7 @@ const results = [
   },
   
    {
-    id: 2,
+    id: 2, slug: 'micentro-comercial',
     title: 'MiCentro: Navegando la Experiencia Comercial',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757288825/micentro_el_porvenir_xef2ft.jpg',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -428,7 +429,7 @@ const results = [
   },
 
 {
-    id: 3,
+    id: 3, slug: 'axa-portal',
     title: 'AXA Colpatria - Rediseño Estratégico de portal público',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757429889/Redise%C3%B1o_AXA_oswal-proyectos.png',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -510,28 +511,28 @@ const results = [
   },
   
   {
-    id: 4,
+    id: 4, slug: 'acueducto-ia',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757289000/plataforma_concursos.jpg',
-    title: 'Quizz Interactivo para concursos: Potenciando el Estudio en Acueducto de Bogotá',
+    title: 'Plataforma de Estudio con IA para Acueducto de Bogotá',
     roles: ['UX Research', 'UI Design', 'Frontend Designer'],
-    keyAchievement: 'Una interfaz para que los empleados del Acueducto de Bogotá estudien y se preparen de forma autónoma para los concursos de ascenso.',
+    keyAchievement: 'Plataforma donde los empleados suben sus PDFs, la IA genera resúmenes automáticos, crean quizzes y exámenes de práctica, y un chat con IA resuelve dudas en tiempo real — todo para prepararse para los concursos de ascenso.',
     client: 'Acueducto de Bogotá',
     industry: 'Servicios públicos',
     location: 'Bogotá, Colombia',
     myRole: 'Frontend Designer',
     responsibilities: ['UX Research', 'UI Design', 'Frontend Developer'],
-    challenge: "El Acueducto de Bogotá buscaba una solución innovadora y accesible para apoyar a sus empleados en la preparación de los concursos de ascenso, más allá de los métodos de estudio tradicionales. El desafío era crear una herramienta digital interactiva que permitiera a los usuarios autoevaluarse en temarios específicos, gestionar su progreso y ofrecer una experiencia de estudio atractiva y efectiva, todo dentro de un entorno seguro y controlado con gestión de usuarios internos.",
+    challenge: 'El Acueducto de Bogotá buscaba una solución innovadora para apoyar a sus empleados en la preparación de los concursos de ascenso. El reto era ir más allá de los métodos tradicionales: crear una plataforma donde cada empleado pudiera subir sus propios materiales de estudio, obtener resúmenes inteligentes generados por IA, practicar con quizzes y exámenes, y despejar dudas en tiempo real — todo de forma autónoma, sin depender de formadores presenciales.',
     process: {
       research: [
-        'User Flow',
+        'User Flow del ciclo completo de estudio: subir PDF → resumen → quiz → chat',
         'Arquitectura de la Información y Sitemap',
-        'Pruebas de Usabilidad'
+        'Pruebas de Usabilidad con empleados reales',
       ],
       design: {
         activities: [
-          'Diseño de Mockups',
-          'Adaptación y Aplicación de UI kit',
-          'Diseño de elementos gráficos'
+          'Diseño de Mockups para cada módulo (subida, resumen, quizz, chat, dashboard)',
+          'Adaptación y Aplicación de UI kit institucional',
+          'Diseño de elementos gráficos y microinteracciones',
         ],
         colors: ['#1361C4', '#02FFA6'],
         typography: [
@@ -541,11 +542,12 @@ const results = [
       },
       development: {
         activities: [
-          'Diseño de Microinteracciones y Animaciones JS/CSS',
-          'Performance Optimization',
-          'Construcción de la interfaz de usuario interactiva y dinámica utilizando Vue.js.',
-          'Implementación de Seguridad Web',
-          'Creación de dashboard para gestionar usuarios ',
+          'Módulo de carga de PDFs con procesamiento automático por IA',
+          'Generación automática de resúmenes inteligentes del material subido',
+          'Sistema de quizzes y exámenes de práctica generados desde el contenido',
+          'Chat con IA para resolver dudas sobre el material de estudio',
+          'Dashboard de gestión de usuarios y seguimiento de progreso',
+          'Implementación de seguridad y control de acceso interno',
         ],
         stack: [
           { name: 'Vue.js', icon: 'fa-brands fa-vuejs' },
@@ -557,23 +559,20 @@ const results = [
     },
     solution: {
       gif: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1756246659/Proyectos_oswal_web_design_AXA_landing_vida_hlubht.gif',
-      description: 'Se desarrolló una plataforma de quiz interactiva y gamificada para el Acueducto de Bogotá, diseñada específicamente para apoyar a los empleados en su preparación para concursos de ascenso. La solución incluye un sistema de gestión de usuarios, seguimiento de progreso, y una interfaz intuitiva que hace del estudio una experiencia atractiva y efectiva.',
+      description: 'Se desarrolló una plataforma de estudio potenciada con IA para el Acueducto de Bogotá: los empleados suben sus PDFs, la IA genera resúmenes automáticos, crean quizzes y exámenes de práctica desde ese mismo contenido, y pueden despejar dudas en tiempo real con un chat inteligente — convirtiendo cualquier material de estudio en una experiencia de aprendizaje activa y autónoma.',
     },
     results: [
-      { value: '+85%', metric: 'Tasa de finalización del quiz' },
-      { value: '+40%', metric: 'Mejora en conocimiento sobre temas específicos' },
-      { value: '10,000+', metric: 'Usuarios activos en el primer mes' },
+      { value: 'Autónomo', metric: 'Cada empleado estudia a su ritmo sin depender de formadores presenciales' },
+      { value: 'IA integrada', metric: 'Resúmenes automáticos, quizzes y chat para despejar dudas del material' },
+      { value: 'Concursos', metric: 'Preparación efectiva para los concursos de ascenso del Acueducto' },
     ],
-
-     marketing: [
-      
-    ],
-    liveUrl: 'https://demoquizz.netlify.app/',
+    marketing: [],
+    liveUrl: 'https://acua.online/',
   },
 
 
  {
-    id: 5,
+    id: 5, slug: 'bunker-libros',
     title: 'Buker de Libros - Interfaz Digital para Gestión de Pedidos por WhatsApp',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1759844475/bunker_search_etcshz.png',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -640,7 +639,7 @@ const results = [
   },
 
 {
-    id: 6,
+    id: 6, slug: 'clinica-dental',
     title: 'Clínica Odontológica en Suecia',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757288824/Clinica-en-suecia_olmnmu.jpg',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -703,7 +702,7 @@ const results = [
   },
 
   {
-    id: 7,
+    id: 7, slug: 'bestyle-catalogo',
     title: 'Bestyle - Catálogo Digital Interactivo y Venta Express',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757289224/bestyle_Web_design.jpg',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -752,7 +751,7 @@ const results = [
   },
   
   {
-    id: 8,
+    id: 8, slug: 'axa-landing',
     title: 'AXA Colpatria - Landing Page "Seguro de Vida Deudor"',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757288825/Landing_AX-COL_.jpg',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -827,7 +826,7 @@ const results = [
   },
   
   {
-    id: 9,
+    id: 9, slug: 'betterme-clinica',
     title: 'BetterMe - Tu Transformación Estética en Colombia',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757288824/Betterme_Ver2_bo15xy.jpg',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -895,7 +894,7 @@ const results = [
     liveUrl: 'https://betterme.oswal.com.co/',
   },
   {
-    id: 10,
+    id: 10, slug: 'dedicandote',
     title: 'Dedicándote: Website de Dedicatorias Musicales y Diseño Personalizado',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757429234/dedicandote_proyecto_oswaldo.jpg',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -967,7 +966,7 @@ const results = [
  
    {
   
-    id: 11,
+    id: 11, slug: 'cafe-cumbre',
     title: 'Café Cumbre Real: Diseño Web, Marca de Café de Origen',
     image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757454819/Web_cafe_cumbre_Proyectos_Oswal.png',
     roles: ['UX Research', 'UI Design', 'Frontend Development'],
@@ -1030,32 +1029,446 @@ const results = [
       { value: '+15%', metric: 'Volumen de consultas por WhatsApp' },
     ],
     liveUrl: 'https://cafecumbrereal.com/',
+  },
+
+  {
+    id: 12, slug: 'celebrarte',
+    title: 'Celebrarte — Invitaciones Digitales Interactivas: Reinventando la Forma de Celebrar',
+    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1787964181/celebrarte_pc_ncmqdr.jpg",
+    roles: ['UX Research', 'UI Design', 'Frontend Development'],
+    keyAchievement: 'Plataforma de invitaciones digitales animadas (baby shower, bodas, cumpleaños) con sobre animado, RSVP, muro de deseos y checkout vía WhatsApp — entrega del link personalizado en menos de 24 horas.',
+    client: 'Celebrarte',
+    industry: 'Entretenimiento / Eventos',
+    location: 'Colombia',
+    myRole: 'Frontend Designer & UX Designer',
+    responsibilities: ['UX Research', 'UI Design', 'Frontend Designer'],
+    challenge: 'Celebrarte necesitaba diferenciarse de la invitación digital tradicional —una imagen estática enviada por WhatsApp— y ofrecer en su lugar una experiencia animada, interactiva y memorable. El reto era diseñar y construir una plataforma de plantillas personalizables (baby shower, boda, cumpleaños) con sobre animado, confirmación de asistencia (RSVP), muro de deseos y mapa interactivo, pensada 100% para móvil, con un flujo de personalización simple y un tiempo de entrega del link menor a 24 horas.',
+    process: {
+      research: [
+        'User Flow de personalización y compra',
+        'Arquitectura de la información por categoría de evento',
+        'Pruebas de usabilidad con clientas reales',
+      ],
+      design: {
+        activities: [
+          'Diseño de mockups por plantilla y categoría',
+          'Sistema de diseño reutilizable para nuevas plantillas',
+          'Diseño del sobre animado y microinteracciones',
+        ],
+        colors: ['#5A1B5E', '#3A1140', '#1A0A20', '#7A2E8A'],
+        typography: [
+          { name: 'Quicksand', usage: 'Cuerpo base — todo el texto general (400, 500, 600, 700)' },
+          { name: 'Playfair Display', usage: 'Títulos / display — encabezados elegantes (400, 600, 700)' },
+        ],
+      },
+      development: {
+        activities: [
+          'Diseño de microinteracciones y animaciones JS/CSS (sobre animado, confeti, transiciones)',
+          'Construcción de la interfaz interactiva y dinámica utilizando Vue.js',
+          'Formulario de personalización en tiempo real con previsualización',
+          'Integración con WhatsApp para checkout y soporte',
+          'Optimización de performance para carga rápida en móvil',
+        ],
+        stack: [
+          { name: 'Vue.js', icon: 'fa-brands fa-vuejs' },
+          { name: 'HTML', icon: 'fa-brands fa-html5' },
+          { name: 'CSS', icon: 'fa-brands fa-css3' },
+          { name: 'JS', icon: 'fa-brands fa-js' },
+        ],
+      },
+    },
+    solution: {
+      description: 'Se desarrolló una plataforma de invitaciones digitales animadas y personalizables para Celebrarte, con plantillas por categoría de evento, sobre animado interactivo, RSVP, muro de deseos en tiempo real y checkout simplificado vía WhatsApp — logrando una experiencia de compra fluida de principio a fin, y sirviendo como base para generar rápidamente nuevas plantillas personalizadas a partir del mismo sistema.',
+    },
+    results: [
+      { value: '+50', metric: 'Celebraciones realizadas con la plataforma' },
+      { value: '4.8★', metric: 'Calificación promedio en Google' },
+      { value: '<24h', metric: 'Tiempo de entrega del link personalizado' },
+    ],
+    liveUrl: 'https://celebrarte.com.co/',
+  },
+
+  {
+    id: 13, slug: 'cafe-de-los-loros',
+    title: 'Café de los Loros: La Puerta de Entrada al Sabor Amazónico en Leticia',
+    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1787965586/cafe-loros-pc_ff26lc.jpg",
+    roles: ['UX Research', 'UI Design', 'Frontend Development'],
+    keyAchievement: 'Web que posiciona a Café de los Loros como el santuario del café amazónico en Leticia, con reservas y cotización de eventos directamente vía WhatsApp.',
+    client: 'Café de los Loros',
+    industry: 'Gastronomía / Café-Bar',
+    location: 'Leticia, Amazonas, Colombia',
+    myRole: 'Frontend Designer & UX Designer',
+    responsibilities: ['UX Research', 'UI Design', 'Frontend Designer'],
+    challenge: 'Café de los Loros buscaba posicionarse como el punto de encuentro obligado para quienes llegan a Leticia camino al Amazonas: un lugar que fuera café, bar y espacio de eventos a la vez. El reto era construir una web que transmitiera esa identidad "selva-café" desde el primer scroll, mostrara con claridad la oferta (café, cócteles, comidas, postres, vinos y cervezas) y facilitara dos acciones clave: reservar mesa y cotizar un evento (reuniones de negocios, coffee breaks, celebraciones), todo en un sitio simple de mantener por el cliente.',
+    process: {
+      research: [
+        'User Flow de reserva y cotización de eventos',
+        'Arquitectura de la información por tipo de visitante (turista de paso vs. cliente de eventos corporativos)',
+        'Pruebas de usabilidad en mobile (perfil principal: viajero consultando desde el celular)',
+      ],
+      design: {
+        activities: [
+          'Diseño de mockups para Home, Menú, Eventos y Blog',
+          'Diseño de componente interactivo "Encuentra tu perfil ideal" (slider de intensidad de café)',
+          'Selección de imágenes y tono visual "santuario amazónico"',
+        ],
+        colors: ['#DA3313', '#F2B33D', '#8B8D3B', '#77624C', '#ACA043'],
+        typography: [
+          { name: 'Quicksand', usage: 'Títulos y texto — toda la interfaz (400, 500, 600, 700)' },
+        ],
+      },
+      development: {
+        activities: [
+          'Maquetación en WordPress + Elementor sobre el theme del sitio',
+          'Diseño de microinteracciones (slider de intensidad de café, scroll reveals)',
+          'Integración de formulario de reservas y cotización de eventos',
+          'Automatización del flujo de reservas (notificaciones automáticas al cliente y al negocio)',
+          'Integración con WhatsApp para contacto directo',
+          'Optimización de imágenes y performance para conexión móvil',
+        ],
+        stack: [
+          { name: 'WordPress', icon: 'fa-brands fa-wordpress' },
+          { name: 'HTML', icon: 'fa-brands fa-html5' },
+          { name: 'CSS', icon: 'fa-brands fa-css3' },
+          { name: 'JS', icon: 'fa-brands fa-js' },
+        ],
+      },
+    },
+    solution: {
+      description: 'Se diseñó una web para Café de los Loros que presenta la experiencia del lugar como "el santuario del café amazónico", con secciones claras de producto (café, cócteles, comidas, postres), un componente interactivo para elegir intensidad de café, y flujos directos de reserva y cotización de eventos vía WhatsApp — posicionando al café como la primera parada de cualquier viajero que llega a Leticia.',
+    },
+    results: [
+      { value: '+100', metric: 'Eventos realizados y gestionados a través del sitio' },
+      { value: '6:30 am – 10 pm', metric: 'Horario comunicado con claridad (L–S)' },
+      { value: 'WhatsApp', metric: 'Canal directo de reservas y contacto integrado' },
+    ],
+    liveUrl: 'https://cafedelosloros.com/',
+  },
+
+  {
+    id: 14, slug: 'fluent-future',
+    title: 'Fluent Future: Consultoría de Inglés para Profesionales Hispanohablantes',
+    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1787967089/fluente_future_pc_eczwzj.jpg",
+    roles: ['UX Research', 'UI Design', 'Frontend Development'],
+    keyAchievement: 'Una web que comunica con claridad quién es Fluent Future y por qué no es una academia más — ayudando a atraer profesionales que buscan mejorar su expresión en inglés para avanzar en sus carreras.',
+    client: 'Fluent Future',
+    industry: 'Educación / Consultoría de idiomas',
+    location: 'Remoto — profesionales hispanohablantes',
+    myRole: 'Frontend Designer & UX Designer',
+    responsibilities: ['UX Research', 'UI Design', 'Frontend Designer'],
+    challenge: 'Fluent Future acompaña a profesionales hispanohablantes que ya tienen inglés funcional, pero necesitan pulir cómo se expresan en momentos que importan: una reunión, una entrevista, una negociación. El reto era transmitir ese posicionamiento — consultoría personal para pulir la expresión, no una academia que enseña desde cero — y construir una experiencia de usuario que generara confianza, diferenciara la propuesta de valor y facilitara la reserva de sesiones de forma fluida.',
+    process: {
+      research: [
+        'Definición del perfil de usuario: profesional hispanohablante con inglés funcional',
+        'User Flow de reserva de sesión y onboarding',
+        'Arquitectura de la información centrada en la propuesta de valor diferencial',
+        'Pruebas de usabilidad para mejorar la experiencia de reservas',
+      ],
+      design: {
+        activities: [
+          'Diseño de mockups y sistema de diseño propio (sin UI framework)',
+          'Microinteracciones y animaciones con GSAP 3.15 + CSS @keyframes',
+          'Diseño del flujo de reservas y confirmación de sesiones',
+          'Optimización de la experiencia de usuario en todo el recorrido',
+        ],
+        colors: ['#2E8A93', '#D9603A', '#F0B450', '#FEFAF5', '#332E2A'],
+        typography: [
+          { name: 'Poppins', usage: 'Headings — presencia y claridad' },
+          { name: 'Karla', usage: 'Body — legibilidad en texto largo' },
+        ],
+      },
+      development: {
+        activities: [
+          'Construcción con Nuxt 3 (Vue 3, SSR activo)',
+          'Integración con CMS Storyblok para gestión de contenido',
+          'Sistema de reservas de sesiones integrado',
+          'Configuración de Google Analytics para seguimiento de conversiones',
+          'Animaciones con GSAP 3.15 y CSS @keyframes',
+          'CSS Vanilla con custom properties (sin UI framework)',
+          'Optimización de performance y Core Web Vitals',
+        ],
+        stack: [
+          { name: 'Vue.js', icon: 'fa-brands fa-vuejs' },
+          { name: 'Storyblok', icon: 'fa-solid fa-layer-group' },
+          { name: 'GSAP', icon: 'fa-solid fa-wand-magic-sparkles' },
+          { name: 'HTML', icon: 'fa-brands fa-html5' },
+          { name: 'CSS', icon: 'fa-brands fa-css3' },
+          { name: 'JS', icon: 'fa-brands fa-js' },
+        ],
+      },
+    },
+    solution: {
+      description: 'Se diseñó y desarrolló una plataforma web con Nuxt 3 y CMS Storyblok que posiciona a Fluent Future como consultoría de expresión en inglés para profesionales, diferenciándola de academias tradicionales. La experiencia incluye animaciones GSAP, un sistema de reservas de sesiones integrado, seguimiento con Google Analytics y contenido gestionable desde Storyblok — logrando un sitio rápido, escalable y con una propuesta de valor clara desde el primer scroll.',
+    },
+    results: [
+      { value: 'Clara', metric: 'Propuesta de valor diferenciada — no academia, consultoría personal' },
+      { value: 'Reservas', metric: 'Flujo de agendamiento de sesiones sin fricción desde el primer día' },
+      { value: 'Escalable', metric: 'Contenido gestionable de forma autónoma para crecer sin depender de un dev' },
+    ],
+    liveUrl: 'https://fluent-future.netlify.app/',
+  },
+
+  {
+    id: 15, slug: 'polla-breve',
+    title: 'Polla Breve: La Experiencia Definitiva del Mundial 2026',
+    image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1787967743/Polla_breve_pc_tqtrhq.jpg',
+    roles: ['UX Research', 'UI Design', 'Frontend Development'],
+    keyAchievement: 'Interfaz web interactiva para que grupos de amigos, familias y compañeros de trabajo vivan el Mundial 2026 juntos — pronosticando partidos, compitiendo en rankings en vivo y ganando puntos con trivias y bonuses diarios.',
+    client: 'Polla Breve',
+    industry: 'Entretenimiento / Deportes',
+    location: 'Colombia',
+    myRole: 'Frontend Designer & UX Designer',
+    responsibilities: ['UX Research', 'UI Design', 'Frontend Designer'],
+    challenge: 'El reto era crear una plataforma que fuera más allá de un simple marcador de pronósticos: una experiencia completa de participación en el Mundial 2026 donde cada usuario tuviera su propio espacio autenticado, pudiera ver su posición en el ranking en tiempo real, participar en trivias diarias, desbloquear bonuses y revisar estadísticas — todo con una interfaz intuitiva, rápida y diseñada para enganchar durante toda la duración del torneo.',
+    process: {
+      research: [
+        'Definición de mecánicas de juego: pronósticos, puntos, bonuses y trivias',
+        'User Flow de registro, autenticación y participación',
+        'Arquitectura de la información por sección (partidos, ranking, trivias, perfil)',
+        'Pruebas de usabilidad enfocadas en la rapidez del flujo de pronóstico',
+      ],
+      design: {
+        activities: [
+          'Diseño de mockups para Home, Ranking, Pronósticos, Trivias y Estadísticas',
+          'Sistema de diseño con identidad visual de torneo (Mundial 2026)',
+          'Diseño de componentes de ranking en vivo y tarjetas de partido',
+          'Microinteracciones para pronósticos, puntuación y resultados',
+        ],
+        colors: ['#059669', '#ECFDF5'],
+        typography: [
+          { name: 'Sans moderna', usage: 'Interfaz general — claridad y velocidad de lectura' },
+          { name: 'Display bold', usage: 'Puntuaciones, rankings y números destacados' },
+        ],
+      },
+      development: {
+        activities: [
+          'Autenticación por usuario para sesiones individuales y personalizadas',
+          'Perfil administrador para gestionar participantes, resultados y configuración del torneo',
+          'Rankings en tiempo real actualizados con cada resultado',
+          'Sistema de pronósticos por partido con cálculo automático de puntos',
+          'Trivias diarias y bonuses por racha de aciertos',
+          'Dashboard de estadísticas personales y comparativas',
+          'Optimización de performance para picos de tráfico durante los partidos',
+        ],
+        stack: [
+          { name: 'Vue.js', icon: 'fa-brands fa-vuejs' },
+          { name: 'HTML', icon: 'fa-brands fa-html5' },
+          { name: 'CSS', icon: 'fa-brands fa-css3' },
+          { name: 'JS', icon: 'fa-brands fa-js' },
+        ],
+      },
+    },
+    solution: {
+      description: 'Se diseñó y desarrolló Polla Breve, una plataforma web interactiva para vivir el Mundial 2026 con autenticación individual por usuario, ranking en tiempo real, sistema de pronósticos con puntuación automática, trivias diarias, bonuses y dashboard de estadísticas — convirtiendo cada partido en una experiencia de competencia grupal que engancha de inicio a fin del torneo.',
+    },
+    results: [
+      { value: 'Competencia grupal', metric: 'Grupos de amigos y compañeros viviendo el torneo juntos desde un solo link' },
+      { value: 'Sin esfuerzo', metric: 'El admin carga resultados y el sistema actualiza puntos y rankings solo' },
+      { value: 'Enganchados', metric: 'Trivias y bonuses diarios que mantienen la participación activa durante todo el Mundial' },
+    ],
+    liveUrl: 'https://pollabreve.online/',
+  },
+
+  {
+    id: 16, slug: 'swea',
+    title: 'Swea Fastighetsservice: Presencia Digital para Limpieza Profesional de Tejados en Estocolmo',
+    image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1779639507/Estocolmo_Portada_eqeqq9.jpg',
+    roles: ['UX Research', 'UI Design', 'Frontend Development'],
+    keyAchievement: 'One-page profesional que convierte visitantes en clientes desde el primer scroll — con formulario de contacto directo y WhatsApp integrado, diseñada para que el equipo de Swea gestione su contenido de forma completamente autónoma.',
+    client: 'Swea Fastighetsservice',
+    industry: 'Servicios del hogar / Limpieza de tejados',
+    location: 'Estocolmo, Suecia',
+    myRole: 'Frontend Designer & UX Designer',
+    responsibilities: ['UX Research', 'UI Design', 'Frontend Designer'],
+    challenge: 'Swea Fastighetsservice necesitaba una presencia digital que les permitiera competir en el mercado de Estocolmo: una empresa de limpieza profesional de tejados que llegaba a propietarios y administradores de edificios que buscan servicios de confianza. El reto era comunicar profesionalismo y experiencia desde el primer vistazo, facilitar el contacto inmediato — sin formularios complicados — y entregarles una herramienta que pudieran actualizar ellos mismos sin depender de un desarrollador cada vez que cambiara un precio, un servicio o una foto.',
+    process: {
+      research: [
+        'Análisis del perfil de cliente: propietarios y administradores de edificios en Estocolmo',
+        'User Flow de contacto y solicitud de presupuesto',
+        'Arquitectura de la información para una one-page de alto impacto',
+        'Benchmark de servicios similares en el mercado escandinavo',
+      ],
+      design: {
+        activities: [
+          'Diseño de mockup de one-page con jerarquía visual clara',
+          'Secciones: servicios, proceso de trabajo, galería, testimonios y contacto',
+          'Componente de formulario de presupuesto y botón de WhatsApp directo',
+          'Adaptación de identidad visual al mercado escandinavo',
+        ],
+        colors: ['#22629F', '#C8913A'],
+        typography: [
+          { name: 'Sans moderna', usage: 'Toda la interfaz — claridad y confianza en mercado europeo' },
+        ],
+      },
+      development: {
+        activities: [
+          'One-page construida con Astro + Vue.js para máxima velocidad de carga',
+          'Dashboard personalizado para gestión autónoma de contenido (precios, servicios, fotos)',
+          'Formulario de contacto y solicitud de presupuesto integrado',
+          'Botón de contacto directo por WhatsApp para cierre rápido',
+          'Optimización de rendimiento y SEO local para búsquedas en Estocolmo',
+        ],
+        stack: [
+          { name: 'Astro', icon: 'fa-solid fa-rocket' },
+          { name: 'Vue.js', icon: 'fa-brands fa-vuejs' },
+          { name: 'HTML', icon: 'fa-brands fa-html5' },
+          { name: 'CSS', icon: 'fa-brands fa-css3' },
+          { name: 'JS', icon: 'fa-brands fa-js' },
+        ],
+      },
+    },
+    solution: {
+      description: 'Se diseñó y desarrolló una one-page profesional para Swea Fastighetsservice que comunica autoridad y confianza desde el primer scroll — presentando sus servicios de limpieza de tejados con claridad, facilitando el contacto inmediato vía formulario y WhatsApp, y entregando un dashboard personalizado que permite al equipo actualizar contenido de forma autónoma sin necesitar soporte técnico.',
+    },
+    results: [
+      { value: 'Presencia', metric: 'De invisible a encontrable: web profesional en el mercado de Estocolmo' },
+      { value: 'Contacto directo', metric: 'Formulario + WhatsApp para que el cliente llegue al cierre en un solo paso' },
+      { value: 'Autonomía', metric: 'Dashboard propio para actualizar servicios, precios y fotos sin un dev' },
+    ],
+    liveUrl: 'https://sweafastighetsservice.se/',
+  },
+
+  {
+    id: 17, slug: 'femme-naturelle',
+    title: 'Femme Naturelle: De la Vitrina Digital al Agendamiento Automatizado',
+    image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1788217127/femme-book-pc_xvaooz.jpg',
+    roles: ['UX Research', 'UI Design', 'Frontend Development'],
+    keyAchievement: 'One-page elegante que presenta la propuesta de Femme Naturelle y guía a cada visitante por un paso a paso claro para agendar su cita — con confirmación automática al correo del cliente desde el primer contacto.',
+    client: 'Femme Naturelle',
+    industry: 'Belleza & Bienestar',
+    location: 'Colombia',
+    myRole: 'Frontend Designer & UX Designer',
+    responsibilities: ['UX Research', 'UI Design', 'Frontend Developer'],
+    challenge: 'Femme Naturelle necesitaba pasar de gestionar sus citas por WhatsApp y mensajes informales a tener una presencia web que comunicara la calidad y el cuidado de su propuesta desde el primer vistazo. El reto era diseñar una one-page que transmitiera la esencia de la marca — femenina, natural y cercana — y que al mismo tiempo guiara a cada visitante por un flujo de agendamiento claro y simple, asegurando que tanto la clienta como el negocio recibieran la confirmación de la cita de forma automática, sin depender de seguimientos manuales.',
+    process: {
+      research: [
+        'Perfil de usuaria: mujer que busca tratamientos de belleza naturales y acceso fácil desde el celular',
+        'User Flow del recorrido completo: conocer la marca → explorar servicios → agendar cita',
+        'Arquitectura de la one-page para maximizar conversión en mobile',
+      ],
+      design: {
+        activities: [
+          'Diseño del mockup de one-page con identidad visual femenina y natural',
+          'Secciones: hero, propuesta de valor, servicios, paso a paso de agendamiento y contacto',
+          'Diseño del flujo de agendamiento en pasos simples y formulario de reserva',
+          'Microinteracciones y transiciones suaves para una experiencia fluida',
+        ],
+        colors: ['#C800DE', '#4B004F', '#FAF8F9'],
+        typography: [
+          { name: 'Cormorant Garamond', usage: 'Títulos — elegancia y feminidad' },
+          { name: 'Open Sans', usage: 'Texto — legibilidad y claridad' },
+        ],
+      },
+      development: {
+        activities: [
+          'Maquetación en HTML, CSS y JS puro — sin dependencias de framework',
+          'Paso a paso de agendamiento con validación en tiempo real',
+          'Automatización de correo de confirmación para la clienta y para el negocio',
+          'Diseño 100% responsivo optimizado para mobile-first',
+          'Animaciones CSS y transiciones suaves al hacer scroll',
+        ],
+        stack: [
+          { name: 'HTML', icon: 'fa-brands fa-html5' },
+          { name: 'CSS', icon: 'fa-brands fa-css3' },
+          { name: 'JS', icon: 'fa-brands fa-js' },
+        ],
+      },
+    },
+    solution: {
+      description: 'Se diseñó y desarrolló una one-page para Femme Naturelle que combina una presentación cuidada de la marca con un flujo de agendamiento en pasos simples: la clienta elige el servicio, selecciona fecha y hora, completa sus datos y recibe automáticamente un correo de confirmación — mientras el negocio también es notificado al instante. Sin llamadas, sin mensajes de seguimiento, sin fricciones.',
+    },
+    results: [
+      { value: 'Automatizado', metric: 'Citas confirmadas al correo sin intervención manual del negocio' },
+      { value: 'Simple', metric: 'Flujo en pasos claros que cualquier clienta puede completar desde el celular' },
+      { value: 'Profesional', metric: 'Presencia digital que refleja la calidad y la esencia de la marca' },
+    ],
+    liveUrl: 'https://femmenaturelle.online/',
+  },
+
+  {
+    id: 18, slug: 'reservas-spa',
+    title: 'Reservas SPA: Del Agendamiento Manual a la Automatización Total',
+    image: 'https://res.cloudinary.com/ddqbnr9vo/image/upload/v1788220191/spa-book-pc_muqees.jpg',
+    roles: ['UX Research', 'UI Design', 'Frontend Development'],
+    keyAchievement: 'Web app de reservas que elimina la gestión manual: el cliente reserva online, recibe confirmación automática por correo y el centro gestiona todo desde un dashboard propio conectado a Google Calendar.',
+    client: 'spa-studio.online',
+    industry: 'Belleza & Bienestar',
+    location: 'Colombia',
+    myRole: 'Frontend Designer & UX Designer',
+    responsibilities: ['UX Research', 'UI Design', 'Frontend Developer'],
+    challenge: 'El centro de estética gestionaba todas sus reservas por WhatsApp y llamadas, lo que generaba confusiones, dobles reservas y tiempo perdido en coordinación manual. Necesitaban una solución digital que permitiera reservar en cualquier momento, confirmara automáticamente la cita por correo y le diera al centro una vista clara de su agenda — sincronizada con Google Calendar para no perder ninguna reserva.',
+    process: {
+      research: [
+        'Mapeo del flujo actual de reservas: desde WhatsApp hasta la confirmación manual',
+        'Identificación de fricciones: dobles reservas, olvidos y ausencia de confirmaciones automáticas',
+        'Diseño del user journey optimizado para cliente y para el administrador del centro',
+      ],
+      design: {
+        activities: [
+          'Flujo de reserva en pasos simples: servicio → fecha/hora → datos → confirmación',
+          'Dashboard para el centro: vista de reservas del día, semana y gestión de disponibilidad',
+          'Interfaz mobile-first para que cualquier cliente pueda reservar desde el celular',
+          'Microinteracciones y feedback visual en cada paso del proceso',
+        ],
+        colors: ['#716FCD', '#FFF4F1', '#FD876E'],
+        typography: [
+          { name: 'Poppins', usage: 'Títulos — moderno y limpio' },
+          { name: 'Inter', usage: 'Texto — legibilidad y claridad' },
+        ],
+      },
+      development: {
+        activities: [
+          'Web app en Vue 3 + Vite con JavaScript — interfaz rápida y reactiva',
+          'Sistema de reservas con validación de disponibilidad en tiempo real',
+          'Envío automático de correo de confirmación al cliente y al centro con los detalles de la cita',
+          'Dashboard para el centro: listado de reservas, estados y acciones de gestión',
+          'Integración con Google Calendar para sincronizar cada nueva reserva automáticamente',
+          'Diseño responsive optimizado para mobile-first',
+        ],
+        stack: [
+          { name: 'Vue.js', icon: 'fa-brands fa-vuejs' },
+          { name: 'Vite', icon: 'fa-solid fa-bolt' },
+          { name: 'JavaScript', icon: 'fa-brands fa-js' },
+        ],
+      },
+    },
+    solution: {
+      description: 'Se diseñó y desarrolló una web app de reservas completa: el cliente elige el servicio, selecciona fecha y hora disponible, completa sus datos y recibe automáticamente una confirmación por correo — mientras el centro recibe la misma notificación y puede verla al instante en su dashboard y en Google Calendar. Sin llamadas, sin confusiones, sin tiempo perdido en coordinación manual.',
+    },
+    results: [
+      { value: 'Automatizado', metric: 'Confirmaciones por correo al cliente y al centro sin intervención manual' },
+      { value: 'Organizado', metric: 'Dashboard propio con visibilidad total de las reservas del día' },
+      { value: 'Sincronizado', metric: 'Agenda conectada a Google Calendar para una gestión sin duplicados' },
+    ],
+    liveUrl: 'https://spa-studio.online/',
   }
 ]
 
-const projectId = computed(() => parseInt(route.params.id as string))
+const projectSlug = computed(() => route.params.slug as string)
+
+// Orden de galería: misma secuencia que Projects.vue
+const galleryOrder = [1, 15, 3, 2, 14, 4, 12, 6, 8, 7, 10, 16, 13, 5, 9, 11, 17, 18]
+const sortedResults = [...results].sort((a, b) => galleryOrder.indexOf(a.id) - galleryOrder.indexOf(b.id))
 
 const goBack = () => {
   router.push('/projects')
 }
 
 const previousProject = () => {
-  const currentIndex = results.findIndex(p => p.id === projectId.value)
-  const prevIndex = currentIndex > 0 ? currentIndex - 1 : results.length - 1
-  const prevId = results[prevIndex].id
-  router.push(`/project/${prevId}`)
-  // Scroll to top after navigation
+  const currentIndex = sortedResults.findIndex(p => p.slug === projectSlug.value)
+  const prevIndex = currentIndex > 0 ? currentIndex - 1 : sortedResults.length - 1
+  const prevSlug = sortedResults[prevIndex].slug
+  router.push(`/project/${prevSlug}`)
   nextTick(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   })
 }
 
 const nextProject = () => {
-  const currentIndex = results.findIndex(p => p.id === projectId.value)
-  const nextIndex = (currentIndex + 1) % results.length
-  const nextId = results[nextIndex].id
-  router.push(`/project/${nextId}`)
-  // Scroll to top after navigation
+  const currentIndex = sortedResults.findIndex(p => p.slug === projectSlug.value)
+  const nextIndex = (currentIndex + 1) % sortedResults.length
+  const nextSlug = sortedResults[nextIndex].slug
+  router.push(`/project/${nextSlug}`)
   nextTick(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   })
@@ -1068,13 +1481,13 @@ const viewProject = () => {
 }
 
 onMounted(() => {
-  currentProject.value = results.find(p => p.id === projectId.value) || null
+  currentProject.value = results.find(p => p.slug === projectSlug.value) || null
 })
 
 // Watch for route changes to update current project
-watch(() => route.params.id, (newId) => {
-  if (newId) {
-    currentProject.value = results.find(p => p.id === parseInt(newId as string)) || null
+watch(() => route.params.slug, (newSlug) => {
+  if (newSlug) {
+    currentProject.value = results.find(p => p.slug === (newSlug as string)) || null
   }
 })
 </script>

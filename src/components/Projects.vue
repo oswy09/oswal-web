@@ -71,20 +71,34 @@
 
     <!-- List View -->
     <div class="list-view" v-if="viewMode === 'list'">
-      <div class="list-grid">
+      <div class="list-grid" ref="listGridRef">
         <div
-          v-for="project in filteredProjects"
+          v-for="(project, index) in filteredProjects"
           :key="project.id"
           class="list-card"
-          @click="navigateToProject(project.id)"
+          :class="`card-cat--${Array.isArray(project.category) ? project.category[0] : project.category}`"
+          @click="navigateToProject(project.slug)"
+          @mousemove="onCardMouseMove"
+          @mouseleave="onCardMouseLeave"
         >
           <div class="list-img-wrap">
             <img :src="project.image" :alt="project.title" loading="lazy"/>
+            <div class="list-img-overlay"></div>
           </div>
           <div class="list-info">
-            <span class="list-cat">{{ Array.isArray(project.category) ? project.category[0] : project.category }}</span>
+            <span class="list-deco-num">{{ String(index + 1).padStart(2, '0') }}</span>
+            <div class="list-info-top">
+              <span class="list-cat-dot"></span>
+              <span class="list-cat-label">{{ Array.isArray(project.category) ? project.category[0] : project.category }}</span>
+            </div>
             <h3 class="list-title">{{ project.title }}</h3>
             <p class="list-client">{{ project.client }}</p>
+            <div class="list-tags">
+              <span v-for="tag in project.tags.slice(0, 3)" :key="tag" class="list-tag">{{ tag }}</span>
+            </div>
+            <div class="list-footer">
+              <span class="list-cta-pill">Ver caso →</span>
+            </div>
           </div>
         </div>
       </div>
@@ -147,7 +161,7 @@
                     <!-- Hover overlay: "Ver caso completo" -->
                     <div class="view-overlay"
                          :class="{ 'overlay-initial': index === 0 && !scrolled }"
-                         @click="navigateToProject(project.id)">
+                         @click="navigateToProject(project.slug)">
                       <span class="view-label">Ver caso completo →</span>
                     </div>
                   </div>
@@ -191,9 +205,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, nextTick, watch as watchVue } from 'vue'
 import { watch } from 'vue'
 import { useRouter } from 'vue-router'
+import gsap from 'gsap'
 
 const router = useRouter()
 const currentFloor = ref(2) // Projects is on floor 2
@@ -244,106 +259,24 @@ const hoveredProject = ref<number | null>(null)
 const scrolled = ref(false)
 
 const projects = [
-  { 
-    id: 1, 
-    title: "Website Hotel", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757359521/Hotel_Amazon_proyecto_oswal.png", 
-    category: ["website"],
-    client: "Hotel Amazon",
-    tags: ["Hospitality", "Booking", "Responsive", "CMS"],
-    order: 1
-  },
-  { 
-    id: 2, 
-    title: "Web centro comercial", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757371575/Micentro_website_proyecto_oswal.png", 
-    category: ["website", "ecommerce"],
-    client: "Micentro Comercial",
-    tags: ["Shopping", "Directory", "Catalog", "Payment"],
-    order: 2
-  },
-  { 
-    id: 3, 
-    title: "Website portal", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757361622/Redise%C3%B1o_web_Proyecto_oswal.png", 
-    category: ["website"],
-    client: "AXA Colpatria",
-    tags: ["Portal", "Corporate", "Multi-page", "Professional"],
-    order: 3
-  },
-  { 
-    id: 4, 
-    title: "Quizz Interactivo", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757370425/Quizz_website_proyectos_Oswal.png", 
-    category: ["interfaz"],
-    client: "Acueducto Bogotá",
-    tags: ["Vue.js", "Interactive", "Gaming", "UX/UI"],
-    order: 4
-  },
-  { 
-    id: 5, 
-    title: "Bunker de libros", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1759547229/bunker-libros-leer_rkyldm.jpg", 
-    category: ["interfaz"],
-    client: "Bunker",
-    tags: ["Catalog", "Products", "Search", "Filter"],
-    order: 5
-  },
-  { 
-    id: 6, 
-    title: "Website Clínica Dental", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757362220/Clinica_odontologica_proyecto_web_oswal.png", 
-    category: ["website"],
-    client: "kliniken Schröder",
-    tags: ["Healthcare", "Medical", "Appointments", "Services"],
-    order: 6
-  },
-  { 
-    id: 7,
-    title: "Catálogo digital", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757371705/Bestyle_website_proyectos_Oswal.png", 
-    category: ["interfaz", "ecommerce"],
-    client: "Bestyle",
-    tags: ["Catalog", "Products", "Search", "Filter"],
-    order: 7
-  },
-  { 
-    id: 8, 
-    title: "Landing page Intermediarios", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757359522/Landing_Pages_seguros.png", 
-    category: ["landing"],
-    client: "AXA Colpatria",
-    tags: ["Insurance", "Corporate", "Lead Gen", "Forms"],
-    order: 8
-  },
-  { 
-    id: 9, 
-    title: "Clínica Cirugías Betterme", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757375618/Clinica_Betterme_proyecto_web_oswal.png", 
-    category: ["website"],
-    client: "Betterme",
-    tags: ["Dashboard", "Analytics", "Data Viz", "Admin"],
-    order: 9
-  },
-  { 
-    id: 10, 
-    title: "Dedicador canciones", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757372516/Dedicandote_proyecto_oswal_music.png", 
-    category: ["landing"],
-    client: "Dedicandote",
-    tags: ["Startup", "Business", "CTA", "Modern"],
-    order: 10
-  },
-  { 
-    id: 11, 
-    title: "Website venta café", 
-    image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757373361/Website_cafe_proyecto_oswal_col.png", 
-    category: ["website", "ecommerce"],
-    client: "Café cumbre",
-    tags: ["Coffee", "Retail", "Online Store", "Products"],
-    order: 11
-  }
- 
+  { id: 1,  slug: 'hotel-amazon',         title: "Website Hotel",                 image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757359521/Hotel_Amazon_proyecto_oswal.png",           category: ["website"],            client: "Hotel Amazon",          tags: ["Hospitality","Booking","Responsive","CMS"],             order: 1  },
+  { id: 2,  slug: 'micentro-comercial',   title: "Web centro comercial",          image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757371575/Micentro_website_proyecto_oswal.png",        category: ["website","ecommerce"], client: "Micentro Comercial",    tags: ["Shopping","Directory","Catalog","Payment"],             order: 4  },
+  { id: 3,  slug: 'axa-portal',           title: "Website portal",                image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757361622/Redise%C3%B1o_web_Proyecto_oswal.png",      category: ["website"],            client: "AXA Colpatria",         tags: ["Portal","Corporate","Multi-page","Professional"],       order: 3  },
+  { id: 4,  slug: 'acueducto-ia',         title: "Plataforma de Estudio con IA",  image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757370425/Quizz_website_proyectos_Oswal.png",         category: ["interfaz"],           client: "Acueducto Bogotá",      tags: ["Vue.js","IA","PDF","UX/UI"],                            order: 6  },
+  { id: 5,  slug: 'bunker-libros',        title: "Bunker de libros",              image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1759547229/bunker-libros-leer_rkyldm.jpg",             category: ["interfaz"],           client: "Bunker",                tags: ["Catalog","Products","Search","Filter"],                 order: 14 },
+  { id: 6,  slug: 'clinica-dental',       title: "Website Clínica Dental",        image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757362220/Clinica_odontologica_proyecto_web_oswal.png",category: ["website"],            client: "kliniken Schröder",     tags: ["Healthcare","Medical","Appointments","Services"],       order: 8  },
+  { id: 7,  slug: 'bestyle-catalogo',     title: "Catálogo digital",              image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757371705/Bestyle_website_proyectos_Oswal.png",        category: ["interfaz","ecommerce"],client: "Bestyle",              tags: ["Catalog","Products","Search","Filter"],                 order: 10 },
+  { id: 8,  slug: 'axa-landing',          title: "Landing page Intermediarios",   image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757359522/Landing_Pages_seguros.png",                  category: ["landing"],            client: "AXA Colpatria",         tags: ["Insurance","Corporate","Lead Gen","Forms"],             order: 9  },
+  { id: 9,  slug: 'betterme-clinica',     title: "Clínica Cirugías Betterme",     image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757375618/Clinica_Betterme_proyecto_web_oswal.png",    category: ["website"],            client: "Betterme",              tags: ["Dashboard","Analytics","Data Viz","Admin"],             order: 15 },
+  { id: 10, slug: 'dedicandote',          title: "Dedicador canciones",           image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757372516/Dedicandote_proyecto_oswal_music.png",       category: ["landing"],            client: "Dedicandote",           tags: ["Startup","Business","CTA","Modern"],                    order: 11 },
+  { id: 11, slug: 'cafe-cumbre',          title: "Website venta café",            image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1757373361/Website_cafe_proyecto_oswal_col.png",        category: ["website","ecommerce"], client: "Café cumbre",          tags: ["Coffee","Retail","Online Store","Products"],            order: 16 },
+  { id: 12, slug: 'celebrarte',           title: "Invitaciones Digitales",        image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1787963819/celebrarte_portada_oebkzg.jpg",              category: ["website","interfaz"], client: "Celebrarte",            tags: ["Vue.js","RSVP","Animaciones","UX/UI"],                  order: 7  },
+  { id: 13, slug: 'cafe-de-los-loros',   title: "Café de los Loros",             image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1787965588/cafe_loros_portada_f9jw6q.png",             category: ["website"],            client: "Café de los Loros",     tags: ["WordPress","Elementor","Reservas","UX/UI"],             order: 13 },
+  { id: 14, slug: 'fluent-future',        title: "Fluent Future",                 image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1787967089/fluent_portada_dbwpil.jpg",                  category: ["website","interfaz"], client: "Fluent Future",         tags: ["Nuxt 3","Storyblok","GSAP","Reservas"],                 order: 5  },
+  { id: 15, slug: 'polla-breve',          title: "Polla Breve",                   image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1787967744/Polla_breve_portada_djhdqo.jpg",             category: ["interfaz"],           client: "Polla Breve",           tags: ["Mundial 2026","Tiempo real","Ranking","Auth"],          order: 2  },
+  { id: 16, slug: 'swea',                 title: "Limpieza de Tejados Estocolmo", image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1787969124/swf.suecia_portada_zshtsg.jpg",              category: ["website","landing"],  client: "Swea Fastighetsservice",tags: ["Astro","Vue.js","Dashboard","Suecia"],                  order: 12 },
+  { id: 17, slug: 'femme-naturelle',      title: "Femme Naturelle",               image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1788217127/femme_portada_itshtk.jpg",                   category: ["landing"],            client: "Femme Naturelle",       tags: ["HTML","CSS","JS","Agendamiento"],                       order: 17 },
+  { id: 18, slug: 'reservas-spa',         title: "Reservas SPA",                  image: "https://res.cloudinary.com/ddqbnr9vo/image/upload/v1788220782/book-spa-pc_wvn6pr.jpg",                    category: ["website","interfaz"], client: "spa-studio.online",     tags: ["Vue 3","Vite","Dashboard","Google Calendar"],           order: 18 },
 ]
 
 const filteredProjects = computed(() => {
@@ -391,8 +324,52 @@ const updateProgressBar = () => {
   }
 }
 
-const navigateToProject = (id: number) => {
-  router.push({ name: 'project-detail', params: { id: id.toString() } })
+const navigateToProject = (slug: string) => {
+  router.push({ name: 'project-detail', params: { slug } })
+}
+
+const listGridRef = ref<HTMLElement | null>(null)
+
+const animateListCards = async () => {
+  await nextTick()
+  const cards = listGridRef.value?.querySelectorAll('.list-card')
+  if (!cards?.length) return
+  gsap.fromTo(cards,
+    { y: 30, opacity: 0, scale: 0.96 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.055, ease: 'power3.out', clearProps: 'transform,opacity' }
+  )
+}
+
+watchVue(viewMode, (newMode) => {
+  if (newMode === 'list') animateListCards()
+})
+
+watchVue(filteredProjects, () => {
+  if (viewMode.value === 'list') animateListCards()
+})
+
+const onCardMouseMove = (e: MouseEvent) => {
+  const card = e.currentTarget as HTMLElement
+  const rect = card.getBoundingClientRect()
+  const x = ((e.clientX - rect.left) / rect.width - 0.5) * 14
+  const y = ((e.clientY - rect.top)  / rect.height - 0.5) * -10
+  gsap.to(card, {
+    rotateY: x, rotateX: y,
+    y: -7,
+    boxShadow: '0 18px 42px rgba(72,49,212,0.17)',
+    duration: 0.38, ease: 'power2.out',
+    transformPerspective: 900, overwrite: 'auto'
+  })
+}
+
+const onCardMouseLeave = (e: MouseEvent) => {
+  const card = e.currentTarget as HTMLElement
+  gsap.to(card, {
+    rotateY: 0, rotateX: 0,
+    y: 0,
+    boxShadow: '0 2px 18px rgba(72,49,212,0.07)',
+    duration: 0.55, ease: 'power3.out', overwrite: 'auto'
+  })
 }
 
 onMounted(() => {
@@ -625,64 +602,197 @@ onMounted(() => {
 .view-toggle button.active { background: #4831D4; color: white; }
 .view-toggle button:hover:not(.active) { background: rgba(72,49,212,0.08); color: #4831D4; }
 
-/* List view */
+/* ── List view — 2 columnas waoo ────────────────── */
 .list-view {
   position: absolute;
   inset: 58px 0 0 0;
-  background: #F4F9FC;
+  background: #F6F4FF;
   overflow-y: auto;
   z-index: 5;
-  padding: 1.5rem 2rem 3rem;
+  padding: 1.1rem 1.5rem 5rem;
 }
 .list-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.25rem;
-  max-width: 1200px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 1100px;
   margin: 0 auto;
 }
+
+/* Card base */
 .list-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 22px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 22px rgba(72,49,212,0.07);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: border-color 0.35s;
 }
-.list-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(72,49,212,0.13);
+
+
+/* Stagger CSS entrance (GSAP overrides these on mount) */
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
 }
+.list-card:nth-child(1)    { animation: cardFadeIn 0.45s ease 0.00s both; }
+.list-card:nth-child(2)    { animation: cardFadeIn 0.45s ease 0.07s both; }
+.list-card:nth-child(3)    { animation: cardFadeIn 0.45s ease 0.14s both; }
+.list-card:nth-child(4)    { animation: cardFadeIn 0.45s ease 0.21s both; }
+.list-card:nth-child(5)    { animation: cardFadeIn 0.45s ease 0.28s both; }
+.list-card:nth-child(6)    { animation: cardFadeIn 0.45s ease 0.35s both; }
+.list-card:nth-child(n+7)  { animation: cardFadeIn 0.45s ease 0.40s both; }
+
+/* Image section */
 .list-img-wrap {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16/9;
   overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
 }
 .list-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s;
+  display: block;
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.list-card:hover .list-img-wrap img { transform: scale(1.04); }
-.list-info { padding: 0.85rem 1rem; }
-.list-cat {
-  font-size: 0.68rem;
+.list-card:hover .list-img-wrap img { transform: scale(1.055); }
+
+.list-img-overlay {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 0.45s;
+}
+.card-cat--website   .list-img-overlay { background: rgba(72,49,212,0.09); }
+.card-cat--landing   .list-img-overlay { background: rgba(82,196,26,0.09); }
+.card-cat--interfaz  .list-img-overlay { background: rgba(253,135,110,0.09); }
+.card-cat--ecommerce .list-img-overlay { background: rgba(245,166,35,0.09); }
+.list-card:hover .list-img-overlay { opacity: 1; }
+
+/* Info panel */
+.list-info {
+  padding: 1.15rem 1.25rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Giant decorative number */
+.list-deco-num {
+  position: absolute;
+  top: -0.35rem;
+  right: 0.7rem;
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: #ece9ff;
+  pointer-events: none;
+  transition: color 0.35s, transform 0.35s;
+  transform: translateY(0);
+}
+.list-card:hover .list-deco-num { transform: translateY(-4px); }
+.card-cat--website:hover   .list-deco-num { color: rgba(72,49,212,0.10); }
+.card-cat--landing:hover   .list-deco-num { color: rgba(82,196,26,0.12); }
+.card-cat--interfaz:hover  .list-deco-num { color: rgba(253,135,110,0.12); }
+.card-cat--ecommerce:hover .list-deco-num { color: rgba(245,166,35,0.12); }
+
+/* Category row */
+.list-info-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.list-cat-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1);
+}
+.list-card:hover .list-cat-dot { transform: scale(1.55); }
+.card-cat--website   .list-cat-dot { background: #4831D4; }
+.card-cat--landing   .list-cat-dot { background: #52c41a; }
+.card-cat--interfaz  .list-cat-dot { background: #fd876e; }
+.card-cat--ecommerce .list-cat-dot { background: #f5a623; }
+
+.list-cat-label {
+  font-size: 0.63rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #4831D4;
+  color: #94a3b8;
 }
+
+/* Title */
 .list-title {
-  font-size: 0.98rem;
-  font-weight: 700;
-  margin: 0.28rem 0 0.2rem;
+  font-size: 1.08rem;
+  font-weight: 800;
   color: #1a1a2e;
+  margin: 0.08rem 0 0;
+  line-height: 1.25;
+  transition: color 0.25s;
 }
+.list-card:hover .list-title { color: #4831D4; }
+
+/* Client */
 .list-client {
-  font-size: 0.8rem;
-  color: #718096;
+  font-size: 0.77rem;
+  color: #94a3b8;
   margin: 0;
 }
+
+/* Tags — hidden until hover */
+.list-tags {
+  display: flex;
+  gap: 0.28rem;
+  flex-wrap: wrap;
+  margin-top: 0.22rem;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease 0.07s, transform 0.3s ease 0.07s;
+}
+.list-card:hover .list-tags { opacity: 1; transform: translateY(0); }
+.list-tag {
+  font-size: 0.59rem;
+  color: #64748b;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 0.15rem 0.44rem;
+  border-radius: 100px;
+}
+
+/* Footer CTA */
+.list-footer {
+  margin-top: 0.35rem;
+}
+.list-cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #4831D4;
+  background: rgba(72,49,212,0.07);
+  border: 1.5px solid rgba(72,49,212,0.16);
+  padding: 0.36rem 0.88rem;
+  border-radius: 100px;
+  opacity: 0;
+  transform: translateY(7px);
+  transition:
+    opacity 0.3s ease 0.1s,
+    transform 0.38s cubic-bezier(0.34,1.56,0.64,1) 0.1s,
+    background 0.2s;
+}
+.list-card:hover .list-cta-pill { opacity: 1; transform: translateY(0); }
+.list-cta-pill:hover { background: rgba(72,49,212,0.13); }
 
 
 
@@ -1157,6 +1267,12 @@ onMounted(() => {
 
 
 @media (max-width: 768px) {
+  .list-view { padding: 0.75rem 0.75rem 6rem; }
+  .list-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+  .list-deco-num { font-size: 3.8rem; }
+  .list-title { font-size: 0.96rem; }
+  .list-tags, .list-cta-pill { display: none; }
+
   .floor-buttons {
     position: fixed;
     bottom: 2rem;
