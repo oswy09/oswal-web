@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+# public_html se sube a git (Hostinger lo sirve desde ahí)
 
 # Editor directories and files
 .vscode/*
