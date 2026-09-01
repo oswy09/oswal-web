@@ -100,23 +100,14 @@
         })(window, document, "clarity", "script", "tmrp0jwhwz");
     </script>
 
-    <!-- Async CSS Loading -->
-    <script>
-      // Load non-critical CSS asynchronously
-      function loadCSS(href) {
-        var link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'style';
-        link.href = href;
-        link.onload = function() { this.rel = 'stylesheet'; };
-        document.head.appendChild(link);
-      }
-      
-      // Load FontAwesome after critical content
-      window.addEventListener('load', function() {
-        loadCSS('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-      });
-    </script>
+    <!-- FontAwesome — carga no bloqueante (solo se usa en páginas internas) -->
+    <link rel="preload" as="style"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </noscript>
 
     <!-- Schema Person with Enhanced Data -->
     <script type="application/ld+json">
@@ -201,7 +192,7 @@
     </script>
     <script type="module" crossorigin src="/assets/index-DJLjU9OY.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-BAoJ-AG9.js">
-    <link rel="stylesheet" crossorigin href="/assets/style-EDayHkHg.css">
+    <link rel="stylesheet" crossorigin href="/assets/style-C6tB04zK.css">
   </head>
   <body>
     <div id="root"></div>
